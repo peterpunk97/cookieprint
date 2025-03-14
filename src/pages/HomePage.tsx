@@ -11,7 +11,10 @@ export const HomePage = () => {
   console.log(preparedRecentProducts);
 
   return (
+
+    
     <div>
+      
       <FeatureGrid />
 
       <ProductGrid title='Nuevos productos' products={preparedRecentProducts} />
@@ -22,7 +25,7 @@ export const HomePage = () => {
 
       {/* Ir hacia arriba */}
       <div id="back-to-top" className="fixed bottom-8 right-8">
-          <a href="#top" className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700">
+          <a href="#top" className="bg-yellow-400 text-black p-3 rounded-full hover:bg-blue-700">
             <i className="ui-arrow-up">↑</i>
           </a>
         </div>
