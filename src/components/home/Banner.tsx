@@ -6,7 +6,7 @@ export const Banner = () => {
       {/* IMAGEN DE FONDO CON DEGRADADO AZUL Y OPACIDAD */}
       <div
         className="absolute inset-0 bg-cover bg-center h-full"
-        style={{ backgroundImage: 'url(/img/img-banner.jpg)' }}
+        style={{ backgroundImage: 'url(public/img/img-banner.jpg)' }}
       />
 
       {/* OVERLAY CON DEGRADADO AZUL Y OPACIDAD */}

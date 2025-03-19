@@ -1,18 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 
 export const Logo = () => {
-  return( <Link to='/' className={`text-2xl font-bold tracking-tighter transition-all`}>
-
-    <p className='hidden md:block'>
+  return (
+    <Link to="/" className={`text-2xl font-bold tracking-tighter transition-all`}>
+      {/* Logo para pantallas medianas y grandes */}
+      <p className="hidden md:block">
         Cookie
-        <span className='text-yellow-400'>Print</span>
-    </p>
+        <span className="text-yellow-400">Print</span>
+      </p>
 
-    <p className='flex text-4xl lg:hidden'>
-        <span className='skew-x-6'>C</span>
-        <span className='text-yellow-400 skew-x-6'>P</span>
-    </p>
-  </Link>
-  );
-};
+      {/* Logo para pantallas pequeñas*/}
+      <div className="md:hidden flex items-center justify-center">
+        <img src="/img/logos/GALLETITA.svg" alt="CookiePrint" className="h-9 w-auto transition-all duration-300" />
+      </div>
+    </Link>
+  )
+}
+
