@@ -59,7 +59,7 @@ export const Navbar = () => {
 
         {/* Right Side Actions */}
         <div className="flex items-center gap-1 lg:gap-3 relative z-20">
-          {/* Search Button */}
+          {/* Busqueda */}
           <button
             className="p-2 rounded-full hover:bg-blue-800/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/50"
             aria-label="Buscar"
@@ -67,7 +67,7 @@ export const Navbar = () => {
             <HiOutlineSearch className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
           </button>
 
-          {/* User Account */}
+          {/* Icono de usuario */}
           <Link to="/account" className="relative overflow-hidden group" aria-label="Mi cuenta">
             <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border-2 border-white flex items-center justify-center text-lg font-bold bg-blue-700 text-white uppercase transition-all duration-300 group-hover:bg-white group-hover:text-blue-700">
               p
@@ -75,7 +75,7 @@ export const Navbar = () => {
             <span className="absolute inset-0 rounded-full bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
           </Link>
 
-          {/* Shopping Cart */}
+          {/* Icono de carrito */}
           <button
             className="p-2 rounded-full hover:bg-blue-800/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/50 relative"
             aria-label="Carrito de compras"
@@ -86,7 +86,7 @@ export const Navbar = () => {
             </span>
           </button>
 
-          {/* Mobile Menu Toggle */}
+          {/* Menu colapsado */}
           <button
             className="p-2 rounded-full md:hidden hover:bg-blue-800/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

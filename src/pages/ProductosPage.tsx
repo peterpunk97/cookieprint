@@ -1,5 +1,6 @@
 import { CardProduct } from '../components/products/CardProduct';
 import { ContainerFilter } from '../components/products/ContainerFilter';
+import { Pagination } from '../components/shared/Pagination';
 import { prepareProducts } from '../helpers/index';
 import { useFilteredProducts } from '../hooks';
 import { useState } from 'react';
@@ -51,10 +52,21 @@ export const ProductosPage = () => {
 							))}
 						</div>
 
-						{/* TODO: Paginación */}
+						
 
+
+						{/* TODO: Paginación */}
+							<Pagination
+							totalItems={totalProducts}
+							page={page}
+							setPage={setPage}
+							/>
 					</div>
+
+					
 				)}
+
+				
 			</div>
 		</>
 	);

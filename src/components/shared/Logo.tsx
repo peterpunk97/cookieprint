@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export const Logo = () => {
   return (
-    <Link to="/" className={`text-2xl font-bold tracking-tighter transition-all`}>
+    <Link to="/" className={`text-2xl text-white font-bold tracking-tighter transition-all`}>
       {/* Logo para pantallas medianas y grandes */}
       <p className="hidden md:block">
         Cookie
