@@ -1,12 +1,12 @@
 import { supabase } from "../supabase/client"
 
-export const getProducts = async () =>{
-    const {data: products, error} = await supabase
-    .from('products')
-    .select('*, variants(*)')
-    .order('created_at', {ascending: false});
+export const getProducts = async () => {
+    const { data: products, error } = await supabase
+        .from('products')
+        .select('*, variants(*)')
+        .order('created_at', { ascending: false });
 
-    if(error){
+    if (error) {
         console.log(error.message);
         throw new Error(error.message);
     }
@@ -14,50 +14,50 @@ export const getProducts = async () =>{
     return products;
 };
 
-export const getFilteredProducts = async({
-    page = 1, 
+export const getFilteredProducts = async ({
+    page = 1,
     brands = [],
-}:{
-    page:number;
+}: {
+    page: number;
     brands: string[];
 }) => {
-        const itemsPerPage = 10;
-        const from = (page -1) * itemsPerPage;
-        const to = from + itemsPerPage -1;
+    const itemsPerPage = 10;
+    const from = (page - 1) * itemsPerPage;
+    const to = from + itemsPerPage - 1;
 
 
 
     let query = supabase
         .from('products')
-        .select('*, variants(*)',{count: 'exact'})
-        .order('created_at', {ascending: false})
+        .select('*, variants(*)', { count: 'exact' })
+        .order('created_at', { ascending: false })
         .range(from, to);
 
-        if(brands.length > 0){
-            query = query.in('brand', brands);
-        }
+    if (brands.length > 0) {
+        query = query.in('brand', brands);
+    }
 
-        const {data, error, count} = await query;
+    const { data, error, count } = await query;
 
-        if (error){
-            console.log(error.message);
-            throw new Error(error.message);
-        }
+    if (error) {
+        console.log(error.message);
+        throw new Error(error.message);
+    }
 
-        return {data, count};
+    return { data, count };
 
 };
 
 
 export const getRecentProducts = async () => {
 
-    const {data: products, error} = await supabase
-    .from('products')
-    .select('*, variants(*)')
-    .order('created_at', {ascending: false}).
-    limit(4);
+    const { data: products, error } = await supabase
+        .from('products')
+        .select('*, variants(*)')
+        .order('created_at', { ascending: false }).
+        limit(4);
 
-    if (error){
+    if (error) {
         console.log(error.message);
         throw new Error(error.message);
     }
@@ -68,20 +68,36 @@ export const getRecentProducts = async () => {
 
 export const getRandomProducts = async () => {
 
-    const {data: products, error} = await supabase
-    .from('products')
-    .select('*, variants(*)')
-    .limit(20);
+    const { data: products, error } = await supabase
+        .from('products')
+        .select('*, variants(*)')
+        .limit(20);
 
-    if (error){
+    if (error) {
         console.log(error.message);
         throw new Error(error.message);
     }
 
     //Seleccionar 4 productos al azar
     const randomProducts = products
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 4);
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 4);
 
     return randomProducts;
+};
+
+
+export const getProductBySlug = async (slug: string) => {
+    const { data, error } = await supabase
+        .from('products')
+        .select('*, variants(*)')
+        .eq('slug', slug).single();
+
+        if(error){
+            console.log(error.message);
+            throw new Error(error.message);
+        }
+
+    return data;
+
 };

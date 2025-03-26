@@ -4,6 +4,7 @@ import { HomePage} from "../pages";
 import { ProductosPage } from "../pages/ProductosPage";
 import { AboutPage } from "../pages/AboutPage";
 import { CotizacionesPage } from "../pages/CotizacionesPage";
+import { ProductoPage } from "../pages/ProductoPage";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,11 @@ export const router = createBrowserRouter([
                 path: 'nosotros',
                 element: <AboutPage/>,
             },
+
+            {
+                path: 'productos/:slug',
+                element: <ProductoPage/>
+            }
         ]
     }
 ]
