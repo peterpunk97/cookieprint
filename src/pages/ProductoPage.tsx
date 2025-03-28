@@ -2,7 +2,7 @@ import { LuMinus, LuPlus } from "react-icons/lu";
 import { Separator } from "../components/shared/Separator";
 import { formatPrice } from "../helpers";
 import { CiDeliveryTruck } from "react-icons/ci";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BsChatLeftText } from "react-icons/bs";
 import { ProductDescription } from "../components/one-product/ProductDescription";
 import { GridImages } from "../components/one-product/GridImages";
@@ -11,6 +11,10 @@ import { useEffect, useMemo, useState } from "react";
 import { VariantProduct } from "../interfaces";
 import { Tag } from "../components/shared/Tag";
 import { Loader } from "../components/shared/Loader";
+import { useCounterStore } from "../store/counter.store";
+import { useCartStore } from "../store/cart.store";
+import toast from "react-hot-toast";
+import { PiHourglassSimpleLight } from "react-icons/pi";
 
 interface Acc {
     [key: string]: {
@@ -19,13 +23,13 @@ interface Acc {
     }
 }
 
-
-
 export const ProductoPage = () => {
 
     const { slug } = useParams<{ slug: string }>();
 
-    const { product, isLoading, isError } = useProduct(slug || '');
+    const [currentSlug, setCurrentSlug] = useState(slug);
+
+    const { product, isLoading, isError } = useProduct(currentSlug || '');
 
     const [selectedColor, setSelectedColor] = useState<string | null>(
         null
@@ -37,6 +41,15 @@ export const ProductoPage = () => {
 
     const [selectedVariant, setSelectedVariant] =
         useState<VariantProduct | null>(null);
+
+
+    const count = useCounterStore(state => state.count);
+    const increment = useCounterStore(state => state.increment);
+    const decrement = useCounterStore(state => state.decrement);
+
+    const addItem = useCartStore(state => state.addItem);
+
+    const navigate = useNavigate();
 
 
     //Agrupamos las variantes por color
@@ -92,7 +105,56 @@ export const ProductoPage = () => {
     //Obtener el Stock
     const isOutOfStock = selectedVariant?.stock === 0;
 
-    if(isLoading) return <Loader/>
+    //Funcion para añadir al carrito
+    const addToCart = () => {
+        if(selectedVariant){
+            addItem({
+                variantId: selectedVariant.id,
+                productId: product?.id || '',
+                name: product?.name || '',
+                image: product?.images[0] || '',
+                color:selectedVariant.color_name,
+                storage: selectedVariant.storage,
+                price: selectedVariant.price,
+                quantity: count,
+            });
+            toast.success('Producto añadido al carrito', {
+                position: 'bottom-right',
+            });
+        }
+    };
+
+
+    //Función para comprar ahora
+    const buyNow = () => {
+        if(selectedVariant){
+            addItem({
+                variantId: selectedVariant.id,
+                productId: product?.id || '',
+                name: product?.name || '',
+                image: product?.images[0] || '',
+                color:selectedVariant.color_name,
+                storage: selectedVariant.storage,
+                price: selectedVariant.price,
+                quantity: count,
+            });
+                navigate('/checkout');
+        }
+    };
+
+
+    //Resetear el slug actual cuando cambia en la URL
+    useEffect(() =>{
+        setCurrentSlug(slug);
+
+        // Reiniciar color, alamacenamiento y variante seleccionada
+        setSelectedColor(null);
+        setSelectedStorage(null);
+        setSelectedVariant(null);
+    }, [slug])
+
+
+    if (isLoading) return <Loader />
 
     if (!product || isError) return (
         <div className="flex justify-center items-center h-[80vh]">
@@ -104,6 +166,9 @@ export const ProductoPage = () => {
 
 
     return <>
+
+        <br />
+        <br />
         <div className="h-fit flex flex-col md:flex-row gap-16 mt-8">
             {/* GALERIA DE IMAGENES*/}
 
@@ -121,7 +186,7 @@ export const ProductoPage = () => {
                     </span>
 
                     <div className="relative">
-                        {isOutOfStock && <Tag contentTag="agotado"/>}
+                        {isOutOfStock && <Tag contentTag="agotado" />}
 
                     </div>
                 </div>
@@ -152,7 +217,7 @@ export const ProductoPage = () => {
                                 <button key={color} className={`w-8 h-8 rounded-full flex justify-center items-center ${selectedColor === color ? 'border border-slate-800' : ''
                                     }`}
                                     onClick={() => setSelectedColor(color)}
-                                    >
+                                >
 
 
                                     <span className="w-[26px] h-[26px] rounded-full" style={{ backgroundColor: color }} />
@@ -208,11 +273,16 @@ export const ProductoPage = () => {
                                 </p>
 
                                 <div className="flex gap-8 px-5 py-3 border border-slate-200 w-fit rounded-full">
-                                    <button>
+                                    <button
+                                        onClick={decrement}
+                                        disabled={count === 1}
+                                    >
                                         <LuMinus size={15} />
                                     </button>
-                                    <span className="text-slate-500 text-sm">1</span>
-                                    <button>
+                                    <span className="text-slate-500 text-sm">{count}</span>
+                                    <button
+                                        onClick={increment}
+                                    >
                                         <LuPlus size={15} />
                                     </button>
                                 </div>
@@ -220,12 +290,14 @@ export const ProductoPage = () => {
 
                             {/*BOTONES ACCION*/}
                             <div className="flex flex-col gap-3">
-                                <button className="bg-[#f3f3f3] uppercase-font-semibold tracking-widest text-xs py-4 rounded-full transition-all 
-                        duration-300 hover:bg-[#e2e2e2]">
+                                <button
+                                    className="bg-[#f3f3f3] uppercase-font-semibold tracking-widest text-xs py-4 rounded-full transition-all 
+                        duration-300 hover:bg-[#e2e2e2]" onClick={addToCart}>
                                     Agregar al carrito
                                 </button>
 
-                                <button className="bg-black text-white uppercase font-semibold tracking-widest text-xs py-4 rounded-full">
+                                <button className="bg-black text-white uppercase font-semibold tracking-widest text-xs py-4 rounded-full"
+                                    onClick={buyNow}>
                                     Comprar ahora
                                 </button>
                             </div>
@@ -256,6 +328,6 @@ export const ProductoPage = () => {
 
         {/* DESCRIPCION */}
 
-        <ProductDescription content={product.description}/>
+        <ProductDescription content={product.description} />
     </>;
 }

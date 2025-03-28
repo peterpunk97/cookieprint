@@ -3,9 +3,13 @@ import { Navbar } from "../components/shared/Navbar"
 import { Footer } from "../components/shared/Footer";
 import { Banner } from "../components/home/Banner";
 import { Newsletter } from "../components/home/Newsletter";
+import { Sheet } from "../components/shared/Sheet";
+import { useGlobalStore } from "../store/global.store";
 
 export const RootLayout = () => {
     const { pathname } = useLocation();
+
+    const isSheetOpen = useGlobalStore(state => state.isSheetOpen);
 
 
     return (
@@ -19,6 +23,8 @@ export const RootLayout = () => {
             </main>
 
             {pathname === '/' && <Newsletter />}
+
+            {isSheetOpen && <Sheet/>}
 
             <Footer />
         </div>

@@ -22,7 +22,10 @@ export const ProductosPage = () => {
 
 	return (
 		<>
-			<h1 className='text-5xl font-semibold text-center mb-12'>
+		<br />
+		<br />
+		<br />
+			<h1 className='text-4xl font-semibold text-center mb-12'>
 				Productos
 			</h1>
 

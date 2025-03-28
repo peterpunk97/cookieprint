@@ -5,6 +5,7 @@ import { ProductosPage } from "../pages/ProductosPage";
 import { AboutPage } from "../pages/AboutPage";
 import { CotizacionesPage } from "../pages/CotizacionesPage";
 import { ProductoPage } from "../pages/ProductoPage";
+import Politicas from "../pages/Politicas";
 
 export const router = createBrowserRouter([
     {
@@ -32,8 +33,13 @@ export const router = createBrowserRouter([
 
             {
                 path: 'productos/:slug',
-                element: <ProductoPage/>
-            }
+                element: <ProductoPage/>,
+            },
+
+            {
+                path: 'politicas',
+                element: <Politicas/>,
+            },
         ]
     }
 ]

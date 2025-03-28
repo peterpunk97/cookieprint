@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { socialLinks } from "../../constants/links";
 import { Logo } from "./Logo";
 import { useState, FormEvent } from "react";
+import Politicas from "../../pages/Politicas";
 
 export const Footer = () => {
   const [phone, setPhone] = useState<string>("");
@@ -68,7 +69,7 @@ export const Footer = () => {
               Productos
             </span>
           </Link>
-          <Link to="#" className="hover:text-yellow-300 transition-colors duration-200 flex items-center">
+          <Link to="/politicas" className="hover:text-yellow-300 transition-colors duration-200 flex items-center">
             <span className="transform translate-x-0 hover:translate-x-1 transition-transform duration-200 inline-flex items-center">
               Políticas de privacidad
             </span>

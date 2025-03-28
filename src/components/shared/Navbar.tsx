@@ -7,8 +7,18 @@ import { Link } from "react-router-dom"
 import { FaBarsStaggered } from "react-icons/fa6"
 import { Logo } from "./Logo"
 import { useState, useEffect } from "react"
+import { useGlobalStore } from "../../store/global.store"
+import { useCartStore } from "../../store/cart.store"
 
 export const Navbar = () => {
+
+  const openSheet = useGlobalStore(state => state.openSheet)
+
+  const totalItemsIncart = useCartStore(
+    state => state.totalItemsInCart
+  );
+
+
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -61,6 +71,7 @@ export const Navbar = () => {
         <div className="flex items-center gap-1 lg:gap-3 relative z-20">
           {/* Busqueda */}
           <button
+            onClick={() => openSheet('search')}
             className="p-2 rounded-full hover:bg-blue-800/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/50"
             aria-label="Buscar"
           >
@@ -77,12 +88,13 @@ export const Navbar = () => {
 
           {/* Icono de carrito */}
           <button
+            onClick={() => openSheet('cart')}
             className="p-2 rounded-full hover:bg-blue-800/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/50 relative"
             aria-label="Carrito de compras"
           >
             <HiOutlineShoppingBag className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
             <span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-yellow-300 text-blue-700 text-xs font-bold rounded-full shadow-md transform transition-transform duration-300 hover:scale-110">
-              0
+              {totalItemsIncart}
             </span>
           </button>
 
