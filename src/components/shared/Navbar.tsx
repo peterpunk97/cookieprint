@@ -2,13 +2,15 @@
 
 import { NavLink } from "react-router-dom"
 import { navbarLinks } from "../../constants/links"
-import { HiOutlineSearch, HiOutlineShoppingBag } from "react-icons/hi"
+import { HiOutlineSearch, HiOutlineShoppingBag, HiOutlineUser } from "react-icons/hi"
 import { Link } from "react-router-dom"
 import { FaBarsStaggered } from "react-icons/fa6"
 import { Logo } from "./Logo"
 import { useState, useEffect } from "react"
 import { useGlobalStore } from "../../store/global.store"
 import { useCartStore } from "../../store/cart.store"
+import { useUser } from "../../hooks"
+import { LuLoader } from "react-icons/lu"
 
 export const Navbar = () => {
 
@@ -17,6 +19,10 @@ export const Navbar = () => {
   const totalItemsIncart = useCartStore(
     state => state.totalItemsInCart
   );
+
+  const {session, isLoading} = useUser();
+
+  const userId = session?.user.id;
 
 
   const [isScrolled, setIsScrolled] = useState(false)
@@ -79,12 +85,25 @@ export const Navbar = () => {
           </button>
 
           {/* Icono de usuario */}
-          <Link to="/account" className="relative overflow-hidden group" aria-label="Mi cuenta">
-            <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border-2 border-white flex items-center justify-center text-lg font-bold bg-blue-700 text-white uppercase transition-all duration-300 group-hover:bg-white group-hover:text-blue-700">
-              p
-            </div>
-            <span className="absolute inset-0 rounded-full bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-          </Link>
+        
+            {
+              isLoading ? (
+                <LuLoader className="animate-spin" size={60}/>
+              ) : session ? (
+                <Link to="/account" className="relative overflow-hidden group" aria-label="Mi cuenta">
+                <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border-2 border-white flex items-center justify-center text-lg font-bold bg-blue-700 text-white uppercase transition-all duration-300 group-hover:bg-white group-hover:text-blue-700">
+                  p
+                </div>
+                <span className="absolute inset-0 rounded-full bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+              </Link>
+    
+              ) : (
+                  <Link to='/login'>
+                      <HiOutlineUser size={25} />
+                  </Link>
+              )
+            }
+
 
           {/* Icono de carrito */}
           <button
