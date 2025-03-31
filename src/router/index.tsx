@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { RootLayout } from '../layouts/RootLayout';
-import { HomePage, LoginPage, OrdersUserPage, RegisterPage} from "../pages";
+import { CheckoutPage, HomePage, LoginPage, OrdersUserPage, RegisterPage, ThankYouPage} from "../pages";
 import { ProductosPage } from "../pages/ProductosPage";
 import { AboutPage } from "../pages/AboutPage";
 import { CotizacionesPage } from "../pages/CotizacionesPage";
@@ -58,14 +58,29 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         path: '',
-                        element: <Navigate to='/account/pedidos'/>,
+                        element: <Navigate to='/account/pedidos'/>, 
                     },
                     {
                         path: 'pedidos',
                         element: <OrdersUserPage/>,
-                    }
-                ]
-            }
+                    },
+                ],
+            },
+
         ],
     },
+
+    {
+        path: '/checkout',
+        element: <CheckoutPage/>,
+    },
+
+    {
+        path: '/checkout/:id/thank-you',
+        element: <ThankYouPage/>,
+    },
+    {
+        path: 'pedidos/:id',
+        element: <OrdersUserPage/>
+    }
 ]);
