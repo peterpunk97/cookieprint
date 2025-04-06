@@ -1,12 +1,13 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { RootLayout } from '../layouts/RootLayout';
-import { CheckoutPage, HomePage, LoginPage, OrdersUserPage, RegisterPage, ThankYouPage} from "../pages";
+import { CheckoutPage, HomePage, LoginPage, OrdersUserPage, OrderUserPage, RegisterPage, ThankYouPage, DashboardProductsPage} from "../pages";
 import { ProductosPage } from "../pages/ProductosPage";
 import { AboutPage } from "../pages/AboutPage";
 import { CotizacionesPage } from "../pages/CotizacionesPage";
 import { ProductoPage } from "../pages/ProductoPage";
 import Politicas from "../pages/Politicas";
-import { ClientLayaout } from "../layouts/ClientLayaout";
+import { ClientLayout } from "../layouts/ClientLayout";
+import { DashboardLayout } from '../layouts/DashboardLayout';
 
 export const router = createBrowserRouter([
     {
@@ -52,20 +53,24 @@ export const router = createBrowserRouter([
                 element: <RegisterPage/>,
             },
 
-            {
-                path: 'account',
-                element: <ClientLayaout/>,
-                children: [
-                    {
-                        path: '',
-                        element: <Navigate to='/account/pedidos'/>, 
-                    },
-                    {
-                        path: 'pedidos',
-                        element: <OrdersUserPage/>,
-                    },
-                ],
-            },
+			{
+				path: 'account',
+				element: <ClientLayout />,
+				children: [
+					{
+						path: '',
+						element: <Navigate to='/account/pedidos' />,
+					},
+					{
+						path: 'pedidos',
+						element: <OrdersUserPage />,
+					},
+					{
+						path: 'pedidos/:id',
+						element: <OrderUserPage />,
+					},
+				],
+			},
 
         ],
     },
@@ -82,5 +87,19 @@ export const router = createBrowserRouter([
     {
         path: 'pedidos/:id',
         element: <OrdersUserPage/>
-    }
+    },
+    {
+        path: '/dashboard',
+        element: <DashboardLayout/>,
+        children: [
+            {
+                index: true,
+                element: <Navigate to='/dashboard/productos'/>,
+            },
+            {
+                path: 'productos',
+                element: <DashboardProductsPage/>,
+            },
+        ],
+    },
 ]);

@@ -1,4 +1,3 @@
-"use client"
 
 import { NavLink } from "react-router-dom"
 import { navbarLinks } from "../../constants/links"
@@ -9,26 +8,25 @@ import { Logo } from "./Logo"
 import { useState, useEffect } from "react"
 import { useGlobalStore } from "../../store/global.store"
 import { useCartStore } from "../../store/cart.store"
-import { useUser } from "../../hooks"
-import { LuLoader } from "react-icons/lu"
+import { useCustomer, useUser } from "../../hooks"
+
 
 export const Navbar = () => {
+  const openSheet = useGlobalStore((state) => state.openSheet)
 
-  const openSheet = useGlobalStore(state => state.openSheet)
+  const totalItemsIncart = useCartStore((state) => state.totalItemsInCart)
 
-  const totalItemsIncart = useCartStore(
-    state => state.totalItemsInCart
-  );
+  const { session, isLoading } = useUser()
 
-  const {session, isLoading} = useUser();
+  const userId = session?.user.id
 
-  const userId = session?.user.id;
-
+  const {} = useCustomer(userId!);
+  const { data: customer } = useCustomer(userId!)
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  // Detect scroll to add shadow and backdrop blur
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -77,7 +75,7 @@ export const Navbar = () => {
         <div className="flex items-center gap-1 lg:gap-3 relative z-20">
           {/* Busqueda */}
           <button
-            onClick={() => openSheet('search')}
+            onClick={() => openSheet("search")}
             className="p-2 rounded-full hover:bg-blue-800/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/50"
             aria-label="Buscar"
           >
@@ -85,29 +83,32 @@ export const Navbar = () => {
           </button>
 
           {/* Icono de usuario */}
-        
-            {
-              isLoading ? (
-                <LuLoader className="animate-spin" size={60}/>
-              ) : session ? (
-                <Link to="/account" className="relative overflow-hidden group" aria-label="Mi cuenta">
-                <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border-2 border-white flex items-center justify-center text-lg font-bold bg-blue-700 text-white uppercase transition-all duration-300 group-hover:bg-white group-hover:text-blue-700">
-                  p
-                </div>
-                <span className="absolute inset-0 rounded-full bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </Link>
-    
-              ) : (
-                  <Link to='/login'>
-                      <HiOutlineUser size={25} />
-                  </Link>
-              )
-            }
 
+          {isLoading ? (
+            // Custom spinner implementation directly in the component
+            <div className="p-2 flex items-center justify-center">
+              <div className="relative w-6 h-6">
+                <div className="absolute w-full h-full rounded-full border-2 border-t-yellow-300 border-r-blue-300/30 border-b-blue-300/10 border-l-blue-300/30 animate-spin"></div>
+              </div>
+            </div>
+          ) : session ? (
+            <Link to="/account" className="relative overflow-hidden group" aria-label="Mi cuenta">
+              <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border-2 border-white flex items-center justify-center text-lg font-bold bg-blue-700 text-white uppercase transition-all duration-300 group-hover:bg-white group-hover:text-blue-700">
+                
+                {customer && customer.full_name[0]}
+                
+              </div>
+              <span className="absolute inset-0 rounded-full bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <HiOutlineUser size={25} className="text-white" />
+            </Link>
+          )}
 
           {/* Icono de carrito */}
           <button
-            onClick={() => openSheet('cart')}
+            onClick={() => openSheet("cart")}
             className="p-2 rounded-full hover:bg-blue-800/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/50 relative"
             aria-label="Carrito de compras"
           >

@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom"
 
-export const Logo = () => {
+interface Props {
+    isDashboard?: boolean
+}
+
+export const Logo = ({isDashboard}: Props) => {
   return (
-    <Link to="/" className={`text-2xl text-white font-bold tracking-tighter transition-all`}>
+    <Link to="/" className={`text-2xl text-white font-bold tracking-tighter transition-all ${isDashboard && 'hover:scale-105'}`}>
+
       {/* Logo para pantallas medianas y grandes */}
       <p className="hidden md:block">
         Cookie

@@ -1,5 +1,3 @@
-"use client"
-
 import { useForm } from "react-hook-form"
 import { type AddressFormValues, addressSchema } from "../../lib/validator"
 import { InputAddress } from "./InputAddress"

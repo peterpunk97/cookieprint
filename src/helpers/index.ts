@@ -17,10 +17,10 @@ export const prepareProducts = (products: Product[]) => {
     return products.map(product => {
         //agrupar variantes por color
         const colors = product.variants.reduce((acc: Color[], variant: VariantProduct) => {
-            const existingColor = acc.find(item => item.color === variant.color)  
+            const existingColor = acc.find(item => item.color === variant.color)
 
 
-            if(existingColor) { 
+            if (existingColor) {
                 //si ya existe el color comparamos los precios
                 existingColor.price = Math.min(existingColor.price, variant.price);
             }
@@ -40,11 +40,55 @@ export const prepareProducts = (products: Product[]) => {
 
         // devolver el producto formateado
 
-        return{
+        return {
             ...product,
             price,
-            colors: colors.map(({name, color}) => ({name, color})),
+            colors: colors.map(({ name, color }) => ({ name, color })),
             variants: product.variants,
         }
     });
+};
+
+
+//Funcion para formatear la fecha a formato de lectura natural
+
+export const formatDateLong = (date: string): string => {
+    const dateObject = new Date(date);
+
+    return dateObject.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+};
+
+// Funcion para formatear la fecha con solo numeros (dd/mm/yyyy)
+
+export const formatDate = (date: string): string => {
+    const dateObject = new Date(date);
+
+    return dateObject.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: '2-digit',
+        day: 'numeric',
+    });
+};
+
+
+// Funcion para obtener el estado del pedido
+
+export const getStatus = (status: string): string => {
+
+    switch (status) {
+        case 'Pending':
+            return 'Pendiente';
+        case 'Paid':
+            return 'Pagado';
+        case 'Shipped':
+            return 'Enviado';
+        case 'Delivered':
+            return 'Entregado';
+        default:
+            return status;
+    }
 };

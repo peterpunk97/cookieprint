@@ -1,9 +1,30 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useCartStore } from "../store/cart.store"
 import { FormCheckout } from "../components/checkout/FormCheckout"
+import { useUser } from "../hooks"
+import { Loader } from "../components/shared/Loader"
+import { useEffect } from 'react';
+import { supabase } from "../supabase/client"
 
 export const CheckoutPage = () => {
   const totalItems = useCartStore((state) => state.totalItemsInCart)
+
+  const {isLoading} = useUser();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+            supabase.auth.onAuthStateChange(async (event, session) => {
+                if(event === 'SIGNED_OUT' || !session){
+                    navigate('/login');
+                }
+            });
+  }, [navigate]);
+
+if(isLoading) return <Loader/>
+
+
+
 
   return (
     <div
