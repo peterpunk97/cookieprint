@@ -14,3 +14,4 @@ export * from "./Politicas";
 //DashboardPage
 
 export * from "./dashboard/DashboardProductsPage";
+export * from "./dashboard/DashBoardNewProductPage";
