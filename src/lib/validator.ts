@@ -92,7 +92,7 @@ export const productSchema = z.object({
         .array(
             z.object({
                 id: z.string().optional(),
-                stock: z.number(),
+                stock: z.number().min(0, 'El stock debe ser mayor a 0'),
                 price: z.number().min(0.01, 'El precio debe ser mayor a 0'),
                 storage: z.string().min(1, 'El almacenamiento es requerido (ej. 16GB, T:M, 11oz, 50pzs)'),
                 color: z

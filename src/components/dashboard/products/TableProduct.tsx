@@ -7,6 +7,7 @@ import { Loader } from '../../shared/Loader';
 import { formatDate, formatPrice } from "../../../helpers";
 import { Pagination } from "../../shared/Pagination"; 
 import { CellTableProduct } from "./CellTableProduct";
+import { useDeleteProduct } from '../../../hooks/products/useDeleteProduct';
 
 const tableHeaders = [
     '',
@@ -41,6 +42,7 @@ export const TableProduct = () => {
         }
     };
 
+    const {mutate, isPending} = useDeleteProduct();
 
     const handleVariantChange = (
         productId: string,
@@ -51,11 +53,12 @@ export const TableProduct = () => {
         });
     };
 
-    const handleDeleteProduct = (id: string) => {
-        console.log(id);
-    };
+	const handleDeleteProduct = (id: string) => {
+		mutate(id);
+		setOpenMenuIndex(null);
+	};
 
-    if (!products || isLoading || !totalProducts) return <Loader />;
+    if (!products || isLoading || !totalProducts || isPending) return <Loader />;
 
 
 
@@ -93,7 +96,8 @@ export const TableProduct = () => {
 
                                         <td className="p-4 align-middle sm:table-cell">
                                             <img
-                                                src={product.images[0] || 'http://ui.chadcn.com/placeholder.svg'}
+                                                src={product.images[0] || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+}
                                                 alt="Imagen producto"
                                                 loading="lazy"
                                                 decoding="async"
@@ -118,9 +122,15 @@ export const TableProduct = () => {
                                         </td>
 
 
-                                        <CellTableProduct content={formatPrice(selectedVariant.price)}/>
-                                        <CellTableProduct content={selectedVariant.stock.toString()}/>
-                                        <CellTableProduct content={formatDate(product.created_at)}/>
+                                        <CellTableProduct
+										content={formatPrice(selectedVariant?.price)}
+									/>
+									<CellTableProduct
+										content={(selectedVariant.stock || 0).toString()}
+									/>
+									<CellTableProduct
+										content={formatDate(product.created_at)}
+									/>
 
 
                                         <td className="relative">

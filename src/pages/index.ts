@@ -15,3 +15,4 @@ export * from "./Politicas";
 
 export * from "./dashboard/DashboardProductsPage";
 export * from "./dashboard/DashBoardNewProductPage";
+export * from './dashboard/DashboardProductSlugPage';

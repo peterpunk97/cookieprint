@@ -119,6 +119,12 @@ export const Editor = ({
 	});
 
 	useEffect(() => {
+		if(initialContent && editor) {
+			editor.commands.setContent(initialContent);
+		}
+	}, [initialContent, editor]);
+
+	useEffect(() => {
 		if (initialContent && editor) {
 			editor.commands.setContent(initialContent);
 		}

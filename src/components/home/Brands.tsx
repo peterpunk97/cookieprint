@@ -9,6 +9,10 @@ const brands = [
   { image: '/img/logos/4.png', alt: 'Vaca' },
   { image: '/img/logos/5.png', alt: 'Ayuntamiento' },
   { image: '/img/logos/6.png', alt: 'Arrieros' },
+  { image: '/img/logos/7.png', alt: 'UTM' },
+  { image: '/img/logos/8.png', alt: 'ITSCH' },
+  { image: '/img/logos/9.png', alt: 'CEB' },
+
 ];
 
 export const Brands = () => {
@@ -42,7 +46,7 @@ export const Brands = () => {
       <h2 className="font-bold text-2xl">Empresas asociadas</h2>
 
       <p className="w-2/3 text-center text-sm md:text-base">
-        Trabajamos de la mano con empresas y marcas más reconocidas de la región.
+        Trabajamos de la mano con empresas, marcas e instituciones más reconocidas de la región.
       </p>
 
       <div ref={sliderRef} className="keen-slider mt-8 w-full max-w-5xl">

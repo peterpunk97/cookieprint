@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ProductFormValues, productSchema } from "../../../lib/validator";
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { SectionFormProduct } from "./SectionFormProduct";
 import { InputForm } from "./InputForm";
 import { FeaturesInput } from "./FeaturesInput";
@@ -11,65 +11,121 @@ import { generateSlug } from "../../../helpers";
 import { VariantsInput } from "./VariantsInput";
 import { UploaderImages } from "./UploaderImages";
 import { Editor } from './Editor';
-import { JSONContent } from "@tiptap/react";
+import { useCreateProduct } from "../../../hooks/products/useCreateProduct";
+import { Loader } from "../../shared/Loader";
+import { useProduct, useUpdateProduct } from "../../../hooks";
+import { updateProduct } from '../../../actions/product';
+
 
 interface Props {
-    titleForm: string;
+	titleForm: string;
 }
 
 
 export const FormProduct = ({ titleForm }: Props) => {
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-        watch,
-        control,
-    } = useForm<ProductFormValues>({
-        resolver: zodResolver(productSchema),
-    });
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		setValue,
+		watch,
+		control,
+	} = useForm<ProductFormValues>({
+		resolver: zodResolver(productSchema),
+	});
 
-    const navigate = useNavigate();
+	const { slug } = useParams<{ slug: string }>();
+	const { product, isLoading } = useProduct(slug || '');
+	const { mutate: createProduct, isPending } = useCreateProduct();
 
-    const onSubmit = handleSubmit((data) => {
-        console.log(data);
-    });
+	const { mutate: updateProduct, isPending: isUpdatePending } =
+		useUpdateProduct(product?.id || '');
 
-    const watchName = watch('name');
 
-    useEffect(() => {
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (product && !isLoading) {
+			setValue('name', product.name)
+			setValue('slug', product.slug)
+			setValue('brand', product.brand)
+			setValue('features', product.features.map((f: string) => ({ value: f }))
+			);
+			setValue('description', product.description);
+			setValue('images', product.images);
+			setValue('variants', 
+				product.variants.map(v => ({
+					id: v.id,
+					stock: v.stock,
+					price: v.price,
+					storage: v.storage,
+					color: v.color,
+					colorName: v.color_name,
+				}))
+			);
+		}
+	}, [product, isLoading, setValue]);
+
+	const onSubmit = handleSubmit(data => {
+		const features = data.features.map(feature => feature.value);
+			if(slug){
+				updateProduct({
+					name: data.name,
+					brand: data.brand,
+					slug: data.slug,
+					variants: data.variants,
+					images: data.images,
+					description: data.description,
+					features,
+				})
+			} else{
+				createProduct({
+					name: data.name,
+					brand: data.brand,
+					slug: data.slug,
+					variants: data.variants,
+					images: data.images,
+					description: data.description,
+					features,
+				});
+			}
+	});
+
+	const watchName = watch('name');
+
+	useEffect(() => {
 		if (!watchName) return;
 
 		const generatedSlug = generateSlug(watchName);
 		setValue('slug', generatedSlug, { shouldValidate: true });
 	}, [watchName, setValue]);
 
+	if (isPending || isUpdatePending || isLoading) return <Loader />;
 
+	return (
+		<div className='flex flex-col gap-6 relative'>
 
-    return (
-        <div className='flex flex-col gap-6 relative'>
+			<div className='flex justify-between items-center'>
+				<div className='flex items-center gap-3'>
+					<button
+						className='bg-white p-1.5 rounded-md shadow-sm border border-slate-200 transition-all group hover:scale-105'
+						onClick={() => navigate(-1)}
+					>
+						<IoIosArrowBack
+							size={18}
+							className='transition-all group-hover:scale-125'
+						/>
+					</button>
+					<h2 className='font-bold tracking-tight text-2xl capitalize'>
+						{titleForm}
+					</h2>
+				</div>
+			</div>
 
-            <div className='flex justify-between items-center'>
-                <div className='flex items-center gap-3'>
-                    <button
-                        className='bg-white p-1.5 rounded-md shadow-sm border border-slate-200 transition-all group hover:scale-105'
-                        onClick={() => navigate(-1)}
-                    >
-                        <IoIosArrowBack
-                            size={18}
-                            className='transition-all group-hover:scale-125'
-                        />
-                    </button>
-                    <h2 className='font-bold tracking-tight text-2xl capitalize'>
-                        {titleForm}
-                    </h2>
-                </div>
-            </div>
-
-            <form className='grid grid-cols-1 lg:grid-cols-3 gap-8 auto-rows-max flex-1'
-                onSubmit={onSubmit}>
+			<form className='grid grid-cols-1 lg:grid-cols-3 gap-8 auto-rows-max flex-1'
+				onSubmit={onSubmit}>
 
 				<SectionFormProduct
 					titleSection='Detalles del Producto'
@@ -87,7 +143,7 @@ export const FormProduct = ({ titleForm }: Props) => {
 					<FeaturesInput control={control} errors={errors} />
 				</SectionFormProduct>
 
-                <SectionFormProduct>
+				<SectionFormProduct>
 					<InputForm
 						type='text'
 						label='Etiqueta'
@@ -109,7 +165,7 @@ export const FormProduct = ({ titleForm }: Props) => {
 				</SectionFormProduct>
 
 
-                <SectionFormProduct
+				<SectionFormProduct
 					titleSection='Variantes del Producto'
 					className='lg:col-span-2 h-fit'
 				>
@@ -121,7 +177,7 @@ export const FormProduct = ({ titleForm }: Props) => {
 				</SectionFormProduct>
 
 
-                <SectionFormProduct titleSection='Imágenes del producto'>
+				<SectionFormProduct titleSection='Imágenes del producto'>
 					<UploaderImages
 						errors={errors}
 						setValue={setValue}
@@ -134,8 +190,9 @@ export const FormProduct = ({ titleForm }: Props) => {
 					className='col-span-full'
 				>
 					<Editor
-                        setValue={setValue}
-                        errors={errors}
+						setValue={setValue}
+						errors={errors}
+						initialContent={product?.description}
 
 					/>
 				</SectionFormProduct>
@@ -156,8 +213,8 @@ export const FormProduct = ({ titleForm }: Props) => {
 						Guardar Producto
 					</button>
 				</div>
-            </form>
+			</form>
 
-        </div>
-    )
+		</div>
+	)
 }

@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { RootLayout } from '../layouts/RootLayout';
-import { CheckoutPage, HomePage, LoginPage, OrdersUserPage, OrderUserPage, RegisterPage, ThankYouPage, DashboardProductsPage, DashBoardNewProductPage} from "../pages";
+import { CheckoutPage, HomePage, LoginPage, OrdersUserPage, OrderUserPage, RegisterPage, ThankYouPage, DashboardProductsPage, DashBoardNewProductPage, DashboardProductSlugPage} from "../pages";
 import { ProductosPage } from "../pages/ProductosPage";
 import { AboutPage } from "../pages/AboutPage";
 import { CotizacionesPage } from "../pages/CotizacionesPage";
@@ -104,6 +104,11 @@ export const router = createBrowserRouter([
                 path: 'productos/new',
                 element: <DashBoardNewProductPage/>,
             },
+
+            {
+                path: 'productos/editar/:slug',
+				element: <DashboardProductSlugPage />,
+            }
         ],
     },
 ]);
