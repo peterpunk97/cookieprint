@@ -14,7 +14,6 @@ import { Loader } from "../components/shared/Loader";
 import { useCounterStore } from "../store/counter.store";
 import { useCartStore } from "../store/cart.store";
 import toast from "react-hot-toast";
-import { PiHourglassSimpleLight } from "react-icons/pi";
 
 interface Acc {
     [key: string]: {

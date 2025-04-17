@@ -2,7 +2,7 @@ import { OrderInput } from "../interfaces";
 import { supabase } from '../supabase/client';
 
 
-export const createdOrder = async (order: OrderInput) => {
+export const createOrder = async (order: OrderInput) => {
     //1.- Obtener el usuario autenticado + Cliente de tabla customer
     const { data, error: errorUser } = await supabase.auth.getUser();
 

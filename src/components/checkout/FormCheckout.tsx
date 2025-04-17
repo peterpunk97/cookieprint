@@ -31,7 +31,7 @@ export const FormCheckout = () => {
         price: item.price,
       })),
       totalAmount,
-    }
+    };
 
     createOrder(orderInput, {
       onSuccess: () => {
