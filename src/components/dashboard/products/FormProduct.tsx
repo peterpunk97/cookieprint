@@ -14,7 +14,6 @@ import { Editor } from './Editor';
 import { useCreateProduct } from "../../../hooks/products/useCreateProduct";
 import { Loader } from "../../shared/Loader";
 import { useProduct, useUpdateProduct } from "../../../hooks";
-import { updateProduct } from '../../../actions/product';
 import { JSONContent } from "@tiptap/react";
 
 

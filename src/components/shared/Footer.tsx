@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { socialLinks } from "../../constants/links";
 import { Logo } from "./Logo";
 import { useState, FormEvent } from "react";
-import Politicas from "../../pages/Politicas";
+
 
 export const Footer = () => {
   const [phone, setPhone] = useState<string>("");

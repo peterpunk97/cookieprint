@@ -43,7 +43,7 @@ export const Brands = () => {
 
   return (
     <div className="flex flex-col items-center gap-6 pt-16 pb-12">
-      <h2 className="font-bold text-2xl">Empresas asociadas</h2>
+      <h2 className="font-bold text-2xl">Empresas e instituciones asociadas</h2>
 
       <p className="w-2/3 text-center text-sm md:text-base">
         Trabajamos de la mano con empresas, marcas e instituciones más reconocidas de la región.
