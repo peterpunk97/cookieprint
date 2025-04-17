@@ -2,7 +2,7 @@ export * from './SideBar'
 
 
 //ORDENES
-
+export * from './orders/TableOrdersAdmin';
 
 
 //PRODUCTOS

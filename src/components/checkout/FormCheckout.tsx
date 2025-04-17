@@ -74,7 +74,7 @@ export const FormCheckout = () => {
             className="border border-slate-200 rounded-md p-3 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] outline-none"
             {...register("country")}
           >
-            <option value="Ecuador">México</option>
+            <option value="México">México</option>
           </select>
         </div>
 

@@ -15,6 +15,7 @@ import { useCreateProduct } from "../../../hooks/products/useCreateProduct";
 import { Loader } from "../../shared/Loader";
 import { useProduct, useUpdateProduct } from "../../../hooks";
 import { updateProduct } from '../../../actions/product';
+import { JSONContent } from "@tiptap/react";
 
 
 interface Props {
@@ -53,7 +54,7 @@ export const FormProduct = ({ titleForm }: Props) => {
 			setValue('brand', product.brand)
 			setValue('features', product.features.map((f: string) => ({ value: f }))
 			);
-			setValue('description', product.description);
+			setValue('description', product.description as JSONContent);
 			setValue('images', product.images);
 			setValue('variants', 
 				product.variants.map(v => ({
@@ -192,7 +193,7 @@ export const FormProduct = ({ titleForm }: Props) => {
 					<Editor
 						setValue={setValue}
 						errors={errors}
-						initialContent={product?.description}
+						initialContent={product?.description as JSONContent}
 
 					/>
 				</SectionFormProduct>
