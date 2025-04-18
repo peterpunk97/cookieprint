@@ -1,11 +1,31 @@
+import { FaArrowUp } from 'react-icons/fa6';
 import { CardProduct } from '../components/products/CardProduct';
 import { ContainerFilter } from '../components/products/ContainerFilter';
 import { Pagination } from '../components/shared/Pagination';
 import { prepareProducts } from '../helpers/index';
 import { useFilteredProducts } from '../hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const ProductosPage = () => {
+
+	const [showScrollButton, setShowScrollButton] = useState(false)
+	
+	  // Mostrar botón de scroll solo cuando se ha desplazado hacia abajo
+	  useEffect(() => {
+		const handleScroll = () => {
+		  setShowScrollButton(window.scrollY > 300)
+		}
+	
+		window.addEventListener("scroll", handleScroll)
+		return () => window.removeEventListener("scroll", handleScroll)
+	  }, [])
+	
+	  const scrollToTop = () => {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	  }
+
+
+
 	const [page, setPage] = useState(1);
 	const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
@@ -22,9 +42,9 @@ export const ProductosPage = () => {
 
 	return (
 		<>
-		<br />
-		<br />
-		<br />
+			<br />
+			<br />
+			<br />
 			<h1 className='text-4xl font-semibold text-center mb-12'>
 				Productos
 			</h1>
@@ -55,21 +75,32 @@ export const ProductosPage = () => {
 							))}
 						</div>
 
-						
+
 
 
 						{/* TODO: Paginación */}
-							<Pagination
+						<Pagination
 							totalItems={totalProducts}
 							page={page}
 							setPage={setPage}
-							/>
+						/>
 					</div>
 
-					
+
 				)}
 
-				
+					  {/* Botón  para ir hacia arriba */}
+					  {showScrollButton && (
+						<button
+						  onClick={scrollToTop}
+						  className="fixed bottom-8 right-8 bg-yellow-400 text-black p-4 rounded-full hover:bg-yellow-500 transition-all duration-300 shadow-lg z-50 hover:transform hover:scale-110"
+						  aria-label="Volver arriba"
+						>
+						  <FaArrowUp />
+						</button>
+					  )}
+
+
 			</div>
 		</>
 	);

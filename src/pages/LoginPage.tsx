@@ -8,8 +8,8 @@ import { useLogin, useUser } from "../hooks"
 import { Loader } from "../components/shared/Loader"
 
 export const LoginPage = () => {
-  const [email, setEmail] = useState("pedro.lenin.a.z5.5@gmail.com")
-  const [password, setPassword] = useState("Pedroandrade97App")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const { mutate, isPending } = useLogin()
 
   const { session, isLoading } = useUser()
@@ -66,7 +66,7 @@ export const LoginPage = () => {
                     to="/recuperar-password"
                     className="text-xs text-blue-600 hover:text-blue-800 transition-colors"
                   >
-                    ¿Olvidaste tu contraseña?
+
                   </Link>
                 </div>
                 <input
