@@ -9,7 +9,7 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 
 
 export const ClientLayout = () => {
-
+    
     const {session, isLoading: isLoadingSession} = useUser();
     const {data: role, isLoading: isLoadingRole} = useRoleUser(session?.user.id as string);
 
