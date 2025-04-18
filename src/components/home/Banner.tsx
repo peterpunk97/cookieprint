@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
+import bannerImg from "/public/img/img-banner.png"; // solo si estás usando CRA
+// ⚠️ En Vite usa: import bannerImg from '@/assets/img-banner.png' (ajusta según tu estructura)
 
 export const Banner = () => {
   return (
     <div className="relative bg-gray-900 text-white">
-      {/* IMAGEN DE FONDO CON DEGRADADO AZUL Y OPACIDAD */}
-      <div
-        className="absolute inset-0 bg-cover bg-center h-full"
-        style={{ backgroundImage: 'url(public/img/img-banner.png)' }}
+      {/* IMAGEN DE FONDO */}
+      <img
+        src={bannerImg}
+        alt="Banner"
+        className="absolute inset-0 w-full h-full object-cover"
       />
 
       {/* OVERLAY CON DEGRADADO AZUL Y OPACIDAD */}
-      <div
-        className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-blue-700/30"
-      />
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-blue-700/30" />
 
       {/* CONTENIDO */}
       <div className="relative z-10 flex flex-col items-center justify-center py-20 px-4 text-center lg:py-40 lg:px-8">
