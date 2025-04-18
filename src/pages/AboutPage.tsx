@@ -19,7 +19,6 @@ import { Brands } from "../components/home/Brands"
 export const AboutPage = () => {
   const [showScrollButton, setShowScrollButton] = useState(false)
 
-  // Mostrar botón de scroll solo cuando se ha desplazado hacia abajo
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollButton(window.scrollY > 300)
@@ -33,7 +32,6 @@ export const AboutPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  // Servicios con datos estructurados
   const services = [
     {
       title: "Trámites rápidos y eficientes",
@@ -82,7 +80,6 @@ export const AboutPage = () => {
     },
   ]
 
-  // Estadísticas
   const stats = [
     { number: "4", label: "Años brindando servicios", description: "Experiencia y confianza desde 2021" },
     { number: "100%", label: "Clientes Satisfechos", description: "Compromiso con la excelencia" },
@@ -93,28 +90,24 @@ export const AboutPage = () => {
   return (
     <div className="bg-gray-50 py-20">
       <div className="container mx-auto px-4 lg:px-16">
-        {/* Card de Nosotros con imagen */}
+        {/* Card de Nosotros */}
         <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
           <div className="flex flex-col lg:flex-row">
-            {/* Texto */}
             <div className="lg:w-1/2 p-8 lg:p-12">
               <h1 className="text-4xl font-bold text-blue-600 mb-6 relative">
                 Nosotros
                 <span className="block h-1 w-20 bg-blue-600 mt-4"></span>
               </h1>
               <p className="text-lg text-gray-700 leading-relaxed">
-                En <span className="font-semibold text-blue-600">CookiePrint</span>, nos enorgullece ser tu aliado
-                creativo y tecnológico desde el año 2021. Nacimos con la visión de ofrecer soluciones integrales en
-                impresión, diseño gráfico y servicios tecnológicos, convirtiéndonos en un referente de calidad y
-                confianza en la región.
+                En <span className="font-semibold text-blue-600">CookiePrint</span>, nos enorgullece ser mucho más que una empresa: somos tu <strong>aliado creativo y tecnológico</strong> desde el año <strong>2021</strong>. Nacimos con una visión clara: <strong>ofrecer soluciones integrales</strong> en impresión, diseño gráfico y servicios tecnológicos que superen expectativas y transformen ideas en realidades palpables. Desde nuestros inicios, hemos trabajado con pasión y compromiso para convertirnos en un <strong>referente de calidad, innovación y confianza</strong> en la región.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed mt-4">
-                Nos especializamos en impresiones personalizadas que dan vida a tus ideas, ya sea en tazas, playeras,
-                viniles y más. Cada producto que sale de nuestras manos lleva el sello de la excelencia y la atención al
-                detalle que nos caracteriza.
+                Nuestra especialidad son las <strong>impresiones personalizadas</strong> que reflejan la esencia de cada cliente. Ya sea en <strong>tazas, playeras, viniles, gorras, pines u otros productos</strong>, cada pieza que producimos es única, cuidada al detalle y elaborada con materiales de primera calidad. Nos emociona formar parte de momentos especiales, ideas de negocio, proyectos personales y campañas corporativas.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed mt-4">
+                En CookiePrint, entendemos que cada diseño cuenta una historia, por eso combinamos <strong>creatividad, tecnología de vanguardia y atención personalizada</strong> para asegurar que cada producto hable por sí mismo. Seguimos creciendo contigo, renovando nuestro compromiso día a día para ofrecerte soluciones creativas, efectivas y con ese toque especial que nos distingue.
               </p>
             </div>
-            {/* Imagen con efecto mejorado */}
             <div className="lg:w-1/2 relative">
               <div className="h-full overflow-hidden">
                 <img
@@ -122,14 +115,13 @@ export const AboutPage = () => {
                   alt="Fachada de CookiePrint"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
-                {/* Gradiente azul con mejor efecto */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/40 to-blue-600/10"></div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Nuestros Servicios */}
+        {/* Servicios */}
         <section className="mt-24">
           <h2 className="text-center text-3xl font-bold text-gray-800 mb-3">Nuestros Servicios</h2>
           <div className="flex justify-center mb-10">
@@ -156,10 +148,9 @@ export const AboutPage = () => {
           </div>
         </section>
 
-        {/* Estadísticas con mejor diseño */}
+        {/* Estadísticas */}
         <section className="mt-24 relative overflow-hidden">
           <div className="bg-gradient-to-r from-blue-700 to-blue-500 text-white py-16 px-8 rounded-xl shadow-xl">
-            {/* Patrón de fondo */}
             <div className="absolute inset-0 opacity-10">
               <div
                 className="absolute top-0 left-0 w-full h-full"
@@ -184,7 +175,7 @@ export const AboutPage = () => {
           </div>
         </section>
 
-        {/* Llamada a la acción mejorada */}
+        {/* Call to Action */}
         <section className="mt-24 text-center py-16 bg-white rounded-xl shadow-lg">
           <h3 className="text-3xl font-bold text-gray-800 mb-4">¿Listo para trabajar juntos?</h3>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
@@ -205,7 +196,7 @@ export const AboutPage = () => {
         <Brands />
       </div>
 
-      {/* Botón  para ir hacia arriba */}
+      {/* Botón subir */}
       {showScrollButton && (
         <button
           onClick={scrollToTop}
@@ -218,4 +209,3 @@ export const AboutPage = () => {
     </div>
   )
 }
-

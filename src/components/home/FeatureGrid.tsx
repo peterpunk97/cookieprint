@@ -6,7 +6,7 @@ export const FeatureGrid = () => {
         <div className="grid grid-cols-1 gap-8 mt-6 mb-16 lg:grid-cols-3 lg:gap-8 justify-items-center">
             {[
                 { icon: <AiFillLike />, title: "LA MEJOR OPCIÓN", text: "5 años de crecimiento constante nos han posicionado como la mejor opción a nivel regional." },
-                { icon: <FaCheck />, title: "CALIDAD", text: "Solo vendemos y creamos productos con la mejor calidad utilizando los mejores materiales y tecnología reciente." },
+                { icon: <FaCheck />, title: "CALIDAD", text: "Creamos productos con la mejor calidad utilizando los mejores materiales y tecnología reciente." },
                 { icon: <FaStar />, title: "GARANTÍA", text: "Queremos que ames tus productos personalizados tanto como a nosotros, contamos con la mejor garantía de satisfacción al cliente." }
             ].map((feature, index) => (
                 <div key={index} className="flex flex-col items-center gap-4 bg-white shadow-lg p-6 rounded-2xl border border-gray-200 transition-transform transform hover:scale-105">
