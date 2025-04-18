@@ -1,26 +1,27 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { Link, Navigate } from "react-router-dom"
-import { useLogin, useUser } from "../hooks"
-import { Loader } from "../components/shared/Loader"
+import type React from "react";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { useLogin, useUser } from "../hooks";
+import { Loader } from "../components/shared/Loader";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export const LoginPage = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const { mutate, isPending } = useLogin()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const { session, isLoading } = useUser()
+  const { mutate, isPending } = useLogin();
+  const { session, isLoading } = useUser();
 
   const onLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    mutate({ email, password })
-  }
+    e.preventDefault();
+    mutate({ email, password });
+  };
 
-  if (isLoading) return <Loader />
-  if (session) return <Navigate to="/" />
+  if (isLoading) return <Loader />;
+  if (session) return <Navigate to="/" />;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-b from-white to-blue-50">
@@ -32,7 +33,6 @@ export const LoginPage = () => {
 
         {isPending ? (
           <div className="w-full flex justify-center py-12">
-            {/* Custom spinner replacing LuLoader */}
             <div className="relative w-16 h-16">
               <div className="absolute w-full h-full rounded-full border-4 border-t-blue-600 border-r-blue-300/30 border-b-blue-300/10 border-l-blue-300/30 animate-spin"></div>
               <div className="absolute w-full h-full flex items-center justify-center">
@@ -66,17 +66,26 @@ export const LoginPage = () => {
                     to="/recuperar-password"
                     className="text-xs text-blue-600 hover:text-blue-800 transition-colors"
                   >
-
                   </Link>
                 </div>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Ingresa tu contraseña"
-                  className="border border-gray-300 text-gray-900 px-4 py-3 placeholder:text-gray-400 text-sm rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Ingresa tu contraseña"
+                    className="border border-gray-300 text-gray-900 px-4 py-3 pr-12 placeholder:text-gray-400 text-sm rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black"
+                  >
+                    {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </button>
+                </div>
               </div>
 
               <button
@@ -99,6 +108,5 @@ export const LoginPage = () => {
         )}
       </div>
     </div>
-  )
-}
-
+  );
+};

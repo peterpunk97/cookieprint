@@ -51,6 +51,7 @@ export const RegisterPage = () => {
 
   return (
     <div className="h-full flex flex-col items-center mt-12 gap-5 px-4">
+
       <h1 className="text-4xl font-bold capitalize">Regístrate</h1>
 
       <p className="text-sm font-medium">Por favor ingresa los siguientes datos</p>
