@@ -3,16 +3,17 @@ import { Loader } from "../../components/shared/Loader";
 import { useAllOrders } from "../../hooks";
 
 export const DashboardOrdersPage = () => {
+  const { data, isLoading } = useAllOrders();
 
-    const {data, isLoading} = useAllOrders();
+  if (isLoading || !data) return <Loader />;
 
-    if(isLoading || !data) return <Loader/>;
+  return (
+    <div className="px-2 sm:px-4 lg:px-6 py-4 space-y-5">
+      <h1 className="text-2xl font-bold">Órdenes</h1>
 
-	return (
-		<div className='space-y-5'>
-			<h1 className='text-2xl font-bold'>Órdenes</h1>
-
-			<TableOrdersAdmin orders={data}/>
-		</div>
-	);
-}
+      <div className="overflow-x-auto">
+        <TableOrdersAdmin orders={data} />
+      </div>
+    </div>
+  );
+};
