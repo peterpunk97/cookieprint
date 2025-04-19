@@ -50,7 +50,7 @@ export const CartItem = ({ item }: Props) => {
         </div>
 
         <div className="flex gap-3">
-          <p className="text-[13px] text-gray-600">{item.storage}</p>
+          <p className="text-[13px] text-gray-600">{item.storage} / {item.color}</p>
         </div>
 
         <div className="flex gap-4 items-center">

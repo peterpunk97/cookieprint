@@ -51,13 +51,13 @@ export const ThankYouPage = () => {
             datos:
           </p>
 
-          <div className="space-y-0.5 text-sm p-4 bg-blue-50 border border-[#2563EB] rounded-md">
-            <p>BANCO BBVA</p>
-            <p>Razón Social: JUAN PABLO DE JESUS FLORES MENDOZA</p>
-            <p>RUC: 123456789000</p>
-            <p>Tipo de cuenta: Corriente</p>
-            <p>Número de cuenta: 1234567890</p>
-          </div>
+          <div className="bg-blue-50 text-[13px] p-5 space-y-0.5 border border-[#2563EB] rounded-es-md rounded-ee-md">
+          <p>Datos para realizar la transferencia:</p>
+          <p><strong>Razón Social:</strong> JESUS FLORES PROCEL</p>
+          <p><strong>Tipo de cuenta:</strong> STP</p>
+          <p><strong>CLABE:</strong> 699180000006070608</p>
+ 
+        </div>
 
           <p className="text-sm text-gray-600">
             Una vez realizada la transferencia, comparte tu comprobante a{" "}
