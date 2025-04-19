@@ -12,6 +12,7 @@ const brands = [
   { image: '/img/logos/7.png', alt: 'UTM' },
   { image: '/img/logos/8.png', alt: 'ITSCH' },
   { image: '/img/logos/9.png', alt: 'CEB' },
+  { image: '/img/logos/10.png', alt: 'ITM' },
 ];
 
 export const Brands = () => {
