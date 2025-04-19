@@ -103,9 +103,9 @@ export default function Politicas() {
           <h2 className="text-xl font-bold mb-4 text-[#2563EB]">Contacto</h2>
           <p className="mb-4">Si tiene preguntas o inquietudes sobre nuestra Política de Privacidad, contáctenos en:</p>
           <div className="bg-gray-50 p-4 rounded-lg">
-            <p>Email: privacy@cookieprint.com</p>
-            <p>Teléfono: +1 (555) 123-4567</p>
-            <p>Dirección: Av. Tecnología 123, Ciudad Innovación</p>
+            <p>Email: galletitasdigitalesgmail.com</p>
+            <p>Teléfono: 443 942 5742</p>
+            <p>Dirección: Calle Hidalgo #14-B, Queréndaro Michoacán, México.</p>
           </div>
         </div>
   

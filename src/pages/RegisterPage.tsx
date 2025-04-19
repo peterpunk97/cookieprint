@@ -82,10 +82,13 @@ export const RegisterPage = () => {
               <div className="w-full">
                 <input
                   type="text"
+                  inputMode="numeric"
+                  pattern="\d*"
                   placeholder="Número celular"
                   className="border border-slate-200 text-black px-5 py-4 placeholder:text-black text-sm rounded-full w-full"
                   {...register("phone")}
                 />
+
                 {errors.phone && (
                   <p className="text-red-500 text-xs mt-1 ml-4">{errors.phone.message}</p>
                 )}

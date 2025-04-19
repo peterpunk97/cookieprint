@@ -44,7 +44,7 @@ export const socialLinks = [
     {
         id: 3,
         title: 'WhatsApp',
-        href: 'https://www.whatsapp.com',
+        href: 'https://wa.link/dpqbra',
         icon: <FaWhatsapp/>,
     },
 ];

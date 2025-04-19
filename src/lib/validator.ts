@@ -7,7 +7,9 @@ export const userRegisterSchema = z.object({
 		.string()
 		.min(6, 'La contraseña debe tener al menos 6 caracteres'),
 	fullName: z.string().min(1, 'El nombre completo es requerido'),
-	phone: z.string().optional(),
+	phone: z
+		.string()
+		.regex(/^[0-9]{10}$/, "Debe ser un número de 10 dígitos"),
 });
 
 export const addressSchema = z.object({
@@ -103,3 +105,5 @@ export const productSchema = z.object({
 });
 
 export type ProductFormValues = z.infer<typeof productSchema>;
+
+
