@@ -74,7 +74,7 @@ export const Footer = () => {
               Políticas de privacidad
             </span>
           </Link>
-          <Link to="#" className="hover:text-yellow-300 transition-colors duration-200 flex items-center">
+          <Link to="/terminos" className="hover:text-yellow-300 transition-colors duration-200 flex items-center">
             <span className="transform translate-x-0 hover:translate-x-1 transition-transform duration-200 inline-flex items-center">
               Términos de uso
             </span>

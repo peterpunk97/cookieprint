@@ -10,6 +10,7 @@ export * from "./CheckoutPage";
 export * from "./ThankYouPage";
 export * from "./OrderUserPage";
 export * from "./Politicas";
+export * from "./Terminos";
 
 //DashboardPage
 

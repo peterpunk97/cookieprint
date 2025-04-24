@@ -8,6 +8,8 @@ import { ProductoPage } from "../pages/ProductoPage";
 import Politicas from "../pages/Politicas";
 import { ClientLayout } from "../layouts/ClientLayout";
 import { DashboardLayout } from '../layouts/DashboardLayout';
+import Terminos from "../pages/Terminos";
+
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +43,11 @@ export const router = createBrowserRouter([
             {
                 path: 'politicas',
                 element: <Politicas/>,
+            },
+
+            {
+                path: 'terminos',
+                element: <Terminos/>,
             },
 
             {
