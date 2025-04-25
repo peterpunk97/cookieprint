@@ -5,6 +5,7 @@ import { useUser } from "../hooks"
 import { Loader } from "../components/shared/Loader"
 import { useEffect } from 'react';
 import { supabase } from "../supabase/client"
+import { Logo } from "../components/shared/Logo"
 
 export const CheckoutPage = () => {
   const totalItems = useCartStore((state) => state.totalItemsInCart)
@@ -37,10 +38,7 @@ if(isLoading) return <Loader/>
           to="/"
           className="text-2xl font-bold self-center tracking-tighter transition-all md:text-3xl md:self-start"
         >
-          <p>
-            Cookie
-            <span className="text-[#FFD700]">Print</span>
-          </p>
+          <Logo/>
         </Link>
       </header>
 

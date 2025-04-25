@@ -7,6 +7,7 @@ import { CiCircleCheck } from "react-icons/ci"
 import { formatPrice } from "../helpers"
 import { useEffect } from "react"
 import { supabase } from "../supabase/client"
+import { Logo } from "../components/shared/Logo"
 
 export const ThankYouPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,10 +31,7 @@ export const ThankYouPage = () => {
     <div className="flex flex-col h-screen">
       <header className="bg-[#2563EB] text-white flex items-center justify-center flex-col px-10 py-6 shadow-sm">
         <Link to="/" className="text-3xl font-bold self-center tracking-tighter transition-all md:text-4xl">
-          <p>
-            Cookie
-            <span className="text-[#FFD700]">Print</span>
-          </p>
+          <Logo/>
         </Link>
       </header>
 
